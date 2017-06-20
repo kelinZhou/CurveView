@@ -27,6 +27,7 @@ import java.util.Set;
  */
 
 public class CurveView extends View implements DataObserver {
+
     public CurveView(Context context) {
         this(context, null);
     }
@@ -53,6 +54,9 @@ public class CurveView extends View implements DataObserver {
     protected int mDotTextColor;
     protected int mAxisTextSize;
     protected int mAxisTextColor;
+
+    protected int mAxisLineToCurveAreaGapHeight;
+    protected int mAxisTextToLineGapHeight;
 
     private int mCorner;
 
@@ -126,7 +130,7 @@ public class CurveView extends View implements DataObserver {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.Curve, 0, 0);
         try {
             mUnitWidth = a.getDimensionPixelSize(R.styleable.Curve_unitWidth, 120);
-            mFillColor = a.getColor(R.styleable.Curve_backgroundColor, Color.WHITE);
+            mFillColor = a.getColor(R.styleable.Curve_backgroundColor, Color.TRANSPARENT);
             mContentColor = a.getColor(R.styleable.Curve_contentColor, Color.BLACK);
             mStrokeWidth = a.getDimensionPixelSize(R.styleable.Curve_strokeWidth, 10);
             mContentPaddingTop = a.getDimensionPixelSize(R.styleable.Curve_contentPaddingTop, 0);
@@ -149,6 +153,9 @@ public class CurveView extends View implements DataObserver {
 
             mShowAll = a.getBoolean(R.styleable.Curve_showAll, false);
 
+            mAxisTextToLineGapHeight = a.getDimensionPixelSize(R.styleable.Curve_axisTextToLineGapHeight, 0);
+            mAxisLineToCurveAreaGapHeight = a.getDimensionPixelSize(R.styleable.Curve_axisLineToCurveAreaGapHeight, 0);
+
         } finally {
             a.recycle();
         }
@@ -164,6 +171,20 @@ public class CurveView extends View implements DataObserver {
             return;
         }
 
+        int curveAreaHeight = getHeight()
+                - mContentPaddingTop
+                - mContentPaddingBottom
+                - mAxisLineToCurveAreaGapHeight
+                - mAxisTextToLineGapHeight
+                - mAxisTextSize
+                - mStrokeWidth;
+        int curveAreaTop = mContentPaddingTop;
+        int curveAreaBottom = mContentPaddingTop + curveAreaHeight;
+        int curveAreaStart = mContentPaddingStart;
+        int curveAreaEnd = mContentPaddingEnd;
+
+        int heightPerLevel = curveAreaHeight / (mMaxLevel - mMinLevel);
+
         float scaleX = 1f;
         int unitWidth = mUnitWidth;
         if (mShowAll) {
@@ -172,12 +193,10 @@ public class CurveView extends View implements DataObserver {
 
         if (mContentPath.isEmpty() || mForceUpdate) {
             mForceUpdate = false;
-            int height = getHeight();
-            int heightPerLevel = (height - mContentPaddingTop - mContentPaddingBottom) / (mMaxLevel - mMinLevel);
 
-            mContentPath.moveTo(0, height - mContentPaddingBottom - (mDecorations.get(0).mLevel - mMinLevel) * heightPerLevel);
+            mContentPath.moveTo(0, curveAreaBottom - (mDecorations.get(0).mLevel - mMinLevel) * heightPerLevel);
             for (int i = 1; i < mDecorations.size(); i++) {
-                mContentPath.lineTo(i * unitWidth * scaleX, height - mContentPaddingBottom - (mDecorations.get(i).mLevel - mMinLevel) * heightPerLevel);
+                mContentPath.lineTo(i * unitWidth * scaleX, curveAreaBottom - (mDecorations.get(i).mLevel - mMinLevel) * heightPerLevel);
             }
         }
 
@@ -186,17 +205,18 @@ public class CurveView extends View implements DataObserver {
 
         canvas.drawPath(mContentPath, mContentPaint);
 
-        int heightPerLevel = (getHeight() - mContentPaddingTop - mContentPaddingBottom) / (mMaxLevel - mMinLevel);
         for (int i = 0; i < mDecorations.size(); i++) {
             ItemDecoration decoration = mDecorations.get(i);
 
-            int bottomY = getHeight() - mContentPaddingBottom;
             int dotX = (int) (unitWidth * scaleX * i);
-            int dotY = bottomY - (mDecorations.get(i).mLevel - mMinLevel) * heightPerLevel;
+            int dotY = curveAreaBottom - (mDecorations.get(i).mLevel - mMinLevel) * heightPerLevel;
+
+            // draw x axis text
             if (mShowXText) {
                 int offsetX = getTextOffsetX(mXAxisPaint, decoration.mXAxisText, Gravity.CENTER_HORIZONTAL);
-                canvas.drawText(decoration.mXAxisText, dotX + offsetX, bottomY + mAxisTextSize, mXAxisPaint);
+                canvas.drawText(decoration.mXAxisText, dotX + offsetX, getHeight() - mContentPaddingBottom, mXAxisPaint);
             }
+            // draw mark text on dot
             for (Mark mark : decoration.mMarks) {
                 int offsetX = getTextOffsetX(mDotTextPaint, mark.content, mark.gravity) + mark.marginStart - mark.marginEnd;
                 int offsetY = getTextOffsetY(mDotTextPaint, mark.gravity) + mark.marginTop - mark.marginBottom;
@@ -206,8 +226,13 @@ public class CurveView extends View implements DataObserver {
         }
 
         canvas.restore();
+        int axisY = getHeight() - mContentPaddingBottom - mAxisTextToLineGapHeight - mAxisTextSize;
         if (mShowXLine) {
-            canvas.drawLine(0, getHeight() - mContentPaddingBottom, getWidth(), getHeight() - mContentPaddingBottom, mContentPaint);
+            canvas.drawLine(0,
+                    axisY,
+                    getWidth(),
+                    axisY,
+                    mContentPaint);
         }
     }
 

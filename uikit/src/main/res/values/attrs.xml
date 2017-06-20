@@ -30,6 +30,8 @@
             <flag name="center_horizontal" value="0x20" />
             <flag name="center" value="0x30" />
         </attr>
+        <attr name="axisTextToLineGapHeight" format="dimension" />
+        <attr name="axisLineToCurveAreaGapHeight" format="dimension" />
         <attr name="showAll" format="boolean" />
     </declare-styleable>
 </resources>

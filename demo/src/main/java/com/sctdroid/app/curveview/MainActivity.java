@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Set<CurveView.Mark> onCreateMarks(int position) {
             Set<CurveView.Mark> marks = new HashSet<CurveView.Mark>();
-            CurveView.Mark mark = new CurveView.Mark(getLevel(position) + "°", Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 20, 0, 0);
-            CurveView.Mark mark1 = new CurveView.Mark(getLevel(position) + "°", Gravity.START | Gravity.CENTER_HORIZONTAL, 0, 0, 0, 20);
+            CurveView.Mark mark = new CurveView.Mark(getLevel(position) + "°", Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 8, 0, 0);
+            CurveView.Mark mark1 = new CurveView.Mark(getLevel(position) + "°", Gravity.START | Gravity.CENTER_HORIZONTAL, 0, 0, 0, 8);
             marks.add(mark);
             marks.add(mark1);
             return marks;
