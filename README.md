@@ -81,6 +81,8 @@ dependencies {
 | axisTextColor | color | 坐标轴文字颜色 |
 | showAll | boolean | 是否显示所有点。`true`，显示所有点。`false`，每格宽度由 unitWidth 指定，支持手指拖动 |
 | unitWidth | dimension | x 轴上相邻两点宽度，仅在 `showAll` 为 `false` 时有效 |
+| axisTextToLineGapHeight | dimension | X 轴文字和 X 轴之间的高度 |
+| axisLineToCurveAreaGapHeight | dimension | X 轴和折线图区域之间的空隙高度 |
 
 
 ### 3. 添加 `Adapter`
