@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.CornerPathEffect;
 import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
@@ -101,6 +102,8 @@ public class CurveView extends View implements DataObserver {
     protected Path mContentPath;
     protected CornerPathEffect mCornerPathEffect;
 
+    PaintFlagsDrawFilter mPaintFlagsDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
+
     private void init() {
         mCornerPathEffect = new CornerPathEffect(mCorner);
 
@@ -164,6 +167,9 @@ public class CurveView extends View implements DataObserver {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        // 设置抗锯齿
+        canvas.setDrawFilter(mPaintFlagsDrawFilter);
 
         canvas.drawColor(mFillColor);
 
