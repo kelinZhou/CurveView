@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="Curve">
+    <declare-styleable name="LineChartView">
         <attr name="pairDataKeys" format="integer" />
         <attr name="pairDataValues" format="integer" />
         <attr name="unitWidth" format="dimension" />

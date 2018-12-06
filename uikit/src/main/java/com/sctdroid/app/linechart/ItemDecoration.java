@@ -1,10 +1,7 @@
-package com.sctdroid.app.uikit;
+package com.sctdroid.app.linechart;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * **描述:** 描述数据信息。
@@ -16,7 +13,7 @@ import java.util.Set;
  * **版本:** v 1.0.0
  */
 public class ItemDecoration {
-    private Collection<CurveView.Mark> mMarks = new ArrayList<>();
+    private Collection<LineChartView.Mark> mMarks = new ArrayList<>();
     private int mLevel;
     private String mXAxisText;
     private boolean mIsXAxisTextVisible;
@@ -42,11 +39,11 @@ public class ItemDecoration {
         return mLevel;
     }
 
-    public Collection<CurveView.Mark> getMarks() {
+    public Collection<LineChartView.Mark> getMarks() {
         return mMarks;
     }
 
-    public void setMarks(Collection<CurveView.Mark> mMarks) {
+    public void setMarks(Collection<LineChartView.Mark> mMarks) {
         this.mMarks = mMarks;
     }
 }

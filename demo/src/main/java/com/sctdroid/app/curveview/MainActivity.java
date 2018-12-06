@@ -1,16 +1,14 @@
 package com.sctdroid.app.curveview;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.sctdroid.app.uikit.CurveView;
-import com.sctdroid.app.uikit.CurveView.Gravity;
-import com.sctdroid.app.uikit.ItemDecoration;
+import com.sctdroid.app.linechart.LineChartView;
+import com.sctdroid.app.linechart.ItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CurveView curveView = (CurveView) findViewById(R.id.curve_view);
+        LineChartView curveView = (LineChartView) findViewById(R.id.curve_view);
         curveView.setAdapter(mAdapter1, mAdapter2);
 
 
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private class MyAdapter extends CurveView.Adapter {
+    private class MyAdapter extends LineChartView.Adapter {
 
         private List<Integer> list = new ArrayList<>(31);
         private int color;
@@ -92,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
          * @return
          */
         @Override
-        public Collection<CurveView.Mark> onCreateMarks(int position) {
-            Set<CurveView.Mark> marks = new HashSet<CurveView.Mark>();
-            CurveView.Mark mark = new CurveView.Mark("");
+        public Collection<LineChartView.Mark> onCreateMarks(int position) {
+            Set<LineChartView.Mark> marks = new HashSet<LineChartView.Mark>();
+            LineChartView.Mark mark = new LineChartView.Mark("");
             marks.add(mark);
             return marks;
         }

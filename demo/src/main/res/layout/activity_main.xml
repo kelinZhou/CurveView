@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:background="#3F4356">
 
-        <com.sctdroid.app.uikit.CurveView
+        <com.sctdroid.app.linechart.LineChartView
             android:id="@+id/curve_view"
             android:layout_width="match_parent"
             android:layout_height="192dp"
