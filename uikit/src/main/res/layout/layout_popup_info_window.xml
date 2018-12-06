@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_popup_info_window"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="五月" />
+
+    <TextView
+        android:id="@+id/tvText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        android:drawableStart="@drawable/img_legend_interview_point"
+        android:drawableLeft="@drawable/img_legend_interview_point"
+        tools:ignore="SmallSp"
+        tools:text="面试数：2人" />
+
+    <TextView
+        android:id="@+id/tvText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/img_legend_entry_point"
+        android:drawableLeft="@drawable/img_legend_entry_point"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        tools:ignore="SmallSp"
+        tools:text="入职数：3人" />
+</LinearLayout>
