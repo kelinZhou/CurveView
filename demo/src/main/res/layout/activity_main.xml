@@ -36,6 +36,15 @@
             app:unitWidth="100dp"
             app:xyCoordinateColor="#B7B8BD" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="人数"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="9dp"
+            android:textSize="12sp"
+            android:textColor="#B7B8BD"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
